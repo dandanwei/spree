@@ -68,7 +68,8 @@ module Spree
       true
     end
 
-    def cancel(response)
+    #def cancel(response)
+    def cancel
       raise ::NotImplementedError, 'You must implement cancel method for this payment method.'
     end
   end
