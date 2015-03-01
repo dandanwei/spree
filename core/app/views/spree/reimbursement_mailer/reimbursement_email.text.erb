@@ -3,6 +3,8 @@
 <%= Spree.t('reimbursement_mailer.reimbursement_email.instructions') %>
 
 ============================================================
+Order number: <%= @order.number %>
+============================================================
 <%= Spree.t('reimbursement_mailer.reimbursement_email.refund_summary') %>
 ============================================================
 <%= Spree.t('reimbursement_mailer.reimbursement_email.total_refunded', total: @reimbursement.display_total) %>

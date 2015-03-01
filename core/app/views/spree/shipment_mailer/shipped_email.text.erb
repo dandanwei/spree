@@ -5,9 +5,21 @@
 ============================================================
 <%= Spree.t('shipment_mailer.shipped_email.shipment_summary') %>
 ============================================================
+Order number: <%= @shipment.order.number %>
+============================================================
 <% @shipment.manifest.each do |item| %>
   <%= item.variant.sku %> <%= item.variant.product.name %> <%= item.variant.options_text %>
 <% end %>
+============================================================
+Shipping Address:
+            <%= @shipment.order.ship_address.firstname%> <%= @shipment.order.ship_address.lastname%>
+            <%= @shipment.order.ship_address.address1%>
+            <% if @shipment.order.ship_address.address2 != nil and @shipment.order.ship_address.address2 != ""%>
+              <%= @shipment.order.ship_address.address2%>
+            <% end %>
+            <%= @shipment.order.ship_address.city%> <%= @shipment.order.ship_address.zipcode%>
+            <%= @shipment.order.ship_address.state.name%>
+            <%= @shipment.order.ship_address.country.name%>
 ============================================================
 
 <%= Spree.t('shipment_mailer.shipped_email.track_information', :tracking => @shipment.tracking)     if @shipment.tracking %>

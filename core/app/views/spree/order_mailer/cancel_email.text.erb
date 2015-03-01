@@ -2,8 +2,11 @@
 
 <%= Spree.t('order_mailer.cancel_email.instructions') %>
 
+If you have paid, you will get refund soon.
 ============================================================
 <%= Spree.t('order_mailer.cancel_email.order_summary_canceled') %>
+============================================================
+Order number: <%= @order.number %>
 ============================================================
 <% @order.line_items.each do |item| %>
   <%= item.variant.sku %> <%= raw(item.variant.product.name) %> <%= raw(item.variant.options_text) -%> (<%=item.quantity%>) @ <%= item.single_money %> = <%= item.display_amount %>
@@ -14,3 +17,16 @@
   <%= raw(adjustment.label) %> <%= adjustment.display_amount %>
 <% end %>
 <%= Spree.t('order_mailer.cancel_email.total') %> <%= @order.display_total %>
+============================================================
+Shipping Address:
+            <%= @order.ship_address.firstname%> <%= @order.ship_address.lastname%>
+            <%= @order.ship_address.address1%>
+            <% if @order.ship_address.address2 != nil and @order.ship_address.address2 != ""%>
+              <%= @order.ship_address.address2%>
+            <% end %>
+            <%= @order.ship_address.city%> <%= @order.ship_address.zipcode%>
+            <%= @order.ship_address.state.name%>
+            <%= @order.ship_address.country.name%>
+============================================================
+
+<%= Spree.t('order_mailer.confirm_email.thanks') %>  

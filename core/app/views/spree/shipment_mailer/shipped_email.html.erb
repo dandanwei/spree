@@ -11,13 +11,41 @@
         <%= Spree.t('shipment_mailer.shipped_email.shipment_summary') %>
       </p>
       <table>
+        <tr>
+          <td>Order number:</td>
+          <td><%= @shipment.order.number %></td>
+          <td></td>
+          <td></td>
+        </tr>
         <% @shipment.manifest.each do |item| %>
           <tr>
             <td><%= item.variant.sku %></td>
             <td><%= item.variant.product.name %></td>
             <td><%= item.variant.options_text %></td>
+            <td><%=item.quantity%></td>
           </tr>
         <% end %>
+        <tr>
+          <td>Shipping Address:</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <%= @shipment.order.ship_address.firstname%> <%= @shipment.order.ship_address.lastname%><br />
+            <%= @shipment.order.ship_address.address1%><br />
+            <% if @shipment.order.ship_address.address2 != nil and @shipment.order.ship_address.address2 != ""%>
+              <%= @shipment.order.ship_address.address2%><br />
+            <% end %>
+            <%= @shipment.order.ship_address.city%> <%= @shipment.order.ship_address.zipcode%><br />
+            <%= @shipment.order.ship_address.state.name%><br />
+            <%= @shipment.order.ship_address.country.name%>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>        
       </table>
       <p>
         <%= Spree.t('shipment_mailer.shipped_email.track_information', :tracking => @shipment.tracking)     if @shipment.tracking %>
