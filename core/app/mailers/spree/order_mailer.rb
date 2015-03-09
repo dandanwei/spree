@@ -11,7 +11,12 @@ module Spree
         @order.save!
       end
       
-      filename = "Invoice_#{@order.number}_#{Time.now.strftime('%Y%m%d')}.pdf"
+      filename = "Invoice.pdf"
+      if @order.invoice_number.present?
+        filename = "Invoice_#{@order.invoice_number}_#{@order.number}.pdf"
+      else
+        filename = "Invoice_#{@order.number}.pdf"
+      end
       
       admin_controller = Spree::Admin::OrdersController.new
       invoice = admin_controller.render_to_string(:layout => false , :template => "spree/admin/orders/invoice.pdf.prawn", :type => :prawn, :locals => {:@order => @order})
