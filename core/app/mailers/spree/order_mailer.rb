@@ -5,8 +5,14 @@ module Spree
       subject = (resend ? "[#{Spree.t(:resend).upcase}] " : '')
       subject += "#{Spree::Store.current.name} #{Spree.t('order_mailer.confirm_email.subject')} ##{@order.number}"
       
+      if !@order.invoice_number.present?
+        @order.invoice_number = Spree::PrintInvoice::Config.increase_invoice_number
+        @order.invoice_date = Date.today
+        @order.save!
+      end
+      
       filename = "Invoice_#{@order.number}_#{Time.now.strftime('%Y%m%d')}.pdf"
-
+      
       admin_controller = Spree::Admin::OrdersController.new
       invoice = admin_controller.render_to_string(:layout => false , :template => "spree/admin/orders/invoice.pdf.prawn", :type => :prawn, :locals => {:@order => @order})
 
