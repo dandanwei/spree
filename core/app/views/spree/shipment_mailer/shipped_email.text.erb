@@ -8,7 +8,7 @@
 Order number: <%= @shipment.order.number %>
 ============================================================
 <% @shipment.manifest.each do |item| %>
-  <%= item.variant.sku %> <%= item.variant.product.name %> <%= item.variant.options_text %>
+  <%= item.variant.sku %> <%= item.variant.product.name %> <%= item.variant.options_text %>   x <%=item.quantity%>
 <% end %>
 ============================================================
 Shipping Address:
