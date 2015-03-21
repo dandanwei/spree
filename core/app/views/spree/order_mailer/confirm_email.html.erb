@@ -22,8 +22,11 @@
           <tr>
             <td><%= item.variant.sku %></td>
             <td>
-              <%= raw(item.variant.product.name) %>
-              (<%= raw(item.variant.options_text) %>)
+              <% if item.variant.options_text.length > 0 %>
+                <%= raw(item.variant.product.name) %> -- <%= raw(item.variant.options_text) %>
+              <% else %>
+                <%= raw(item.variant.product.name) %> 
+              <% end %>
             </td>
             <td><%= item.single_money %> x <%=item.quantity%></td>
             <td> = <%= item.display_amount %></td>
